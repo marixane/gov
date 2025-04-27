@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandati MEN</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>Mandati MEN</header>
+
+<div class="container">
+  <div class="left">
+    <div class="row-control">
+      <label for="fonction">Fonction :</label>
+      <select id="fonction">
+        <option>Enseignant - Primaire</option>
+        <option>Enseignant - Collège</option>
+        <option>Enseignant - Lycée</option>
+        <option>Directeur d'école - Primaire</option>
+        <option>Directeur adjoint - Primaire</option>
+        <option>Directeur - Collège</option>
+        <option>Surveillant d'externat - Collège</option>
+        <option>Surveillant d'internat - Collège</option>
+        <option>Directeur - Lycée</option>
+        <option>Directeur adjoint - Lycée</option>
+        <option>Censeur</option>
+        <option>Directeur d'études</option>
+        <option>Chef de travaux</option>
+        <option>Surveillant d'externat - Lycée</option>
+        <option>Surveillant d'internat - Lycée</option>
+        <option>Enseignant Agrégé</option>
+        <option>Enseignant Agrégé - Centres</option>
+        <option>Inspecteur</option>
+        <option>Conseiller d'Orientation</option>
+        <option>Fournisseur</option>
+        <option>Économe</option>
+        <option>Assistant Pédagogique</option>
+      </select>
+    </div>
+
+    <h3>Émoluments</h3>
+    <table id="emoluments">
+      <thead>
+        <tr><th>Élément</th><th>Montant</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Trait. de base</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Ind. Log. Adm.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Ind. Char. Adm.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Ind. Familiale</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Ind. Sujetion</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Ind. Résidence</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Ind. Non Résidence</td><td><input type="number" value="0"></td></tr>
+        <tr><td>All. Ens.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>All. Encad.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>All. Complém.</td><td><input type="number" value="0"></td></tr>
+        <tr class="total-row"><td>TOTAL</td><td><input id="totalEmoluments" type="text" value="0" readonly></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Retenues</h3>
+    <table id="retenues">
+      <thead>
+        <tr><th>Élément</th><th>Montant</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mut. Sect. Mut.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Mut. Caisse Ret.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Impôts</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Fondation M6</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Caisse Ret.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>AMO</td><td><input type="number" value="0"></td></tr>
+        <tr class="total-row"><td>TOTAL</td><td><input id="totalRetenues" type="text" value="0" readonly></td></tr>
+      </tbody>
+    </table>
+
+    <div class="row-control">
+      <label>Salaire Net :</label>
+      <input id="salnet" type="text" value="0" readonly style="font-size: 1.5rem; font-weight: bold;">
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="row-control">
+      <label>Échelle :</label>
+      <div class="input-group">
+        <button onclick="decrease('echelle', 10)">-</button>
+        <input id="echelle" type="number" value="10" min="10" max="12" readonly>
+        <button onclick="increase('echelle', 12)">+</button>
+      </div>
+    </div>
+    <div class="row-control">
+      <label>Échelon :</label>
+      <div class="input-group">
+        <button onclick="decrease('echelon', 1)">-</button>
+        <input id="echelon" type="number" value="5" min="1" max="14" readonly>
+        <button onclick="increase('echelon', 14)">+</button>
+      </div>
+    </div>
+    <div class="row-control">
+      <label>Zone :</label>
+      <select id="zone">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+    </div>
+    <div class="row-control">
+      <label>Nb Enf :</label>
+      <div class="input-group">
+        <button onclick="decrease('nbEnf', 1)">-</button>
+        <input id="nbEnf" type="number" value="1" min="1" max="6" readonly>
+        <button onclick="increase('nbEnf', 6)">+</button>
+      </div>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="marie"> Marié</label>
+      <label><input type="checkbox" id="allcomp"> All. Comp</label>
+      <label><input type="checkbox" id="logadm"> Ind. Log. Adm</label>
+      <label><input type="checkbox" id="mutcr"> Mut.C.R Et Décès</label>
+    </div>
+    <button id="btnCalculer">Calculer</button>
+    <div id="notification"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
