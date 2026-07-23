@@ -220,6 +220,10 @@ function renderCalculation(result) {
 }
 
 if (typeof document !== 'undefined') {
+  // Bloque le geste de double-appui qui agrandit la page sur mobile, tout en
+  // laissant les boutons, cases et sélecteurs recevoir leur clic normal.
+  document.addEventListener('dblclick', (event) => event.preventDefault(), { passive: false });
+
   // Les commandes restent réactives au toucher, même après plusieurs appuis
   // rapides : `touch-action: manipulation` évite que le navigateur interprète
   // le double appui comme un zoom de page.

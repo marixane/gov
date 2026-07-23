@@ -51,16 +51,16 @@
         <tr><th>Élément</th><th>Montant</th></tr>
       </thead>
       <tbody>
-        <tr><td>TRAITEMENT DE BASE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>INDEMNITÉS DE LOGEMENT</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>INDEMNITÉS DE CHARGE ADMINISTRATIVE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>INDEMNITÉ FAMILIALE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>INDEM. DE SUJÉTION</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>INDEM. DE RÉSID. SOUMISE À LA CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>INDEM. DE RÉSID. NON SOUMISE À LA CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>ALLOCATION D'ENSEIGNEMENT</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>ALLOCATION D'ENCADREMENT</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>ALL. COMPLÉMENTAIRE SCE ÉCONOMIQUE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">TRAITEMENT DE BASE</span><span class="label-short">Trait.de base</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">INDEMNITÉS DE LOGEMENT</span><span class="label-short">Ind.Log.Adm.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">INDEMNITÉS DE CHARGE ADMINISTRATIVE</span><span class="label-short">Ind.Char.Adm.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">INDEMNITÉ FAMILIALE</span><span class="label-short">Ind.Familiale</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">INDEM. DE SUJÉTION</span><span class="label-short">Ind.De Suj.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">INDEM. DE RÉSID. SOUMISE À LA CMR</span><span class="label-short">Ind.R.S.CMR</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">INDEM. DE RÉSID. NON SOUMISE À LA CMR</span><span class="label-short">Ind.R.N.S.CMR</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">ALLOCATION D'ENSEIGNEMENT</span><span class="label-short">All.Ens.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">ALLOCATION D'ENCADREMENT</span><span class="label-short">All.Encad.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">ALL. COMPLÉMENTAIRE SCE ÉCONOMIQUE</span><span class="label-short">All.Complém.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
         <tr class="total-row"><td>TOTAL</td><td><input id="totalEmoluments" type="text" value="0" readonly></td></tr>
       </tbody>
     </table>
@@ -71,12 +71,12 @@
         <tr><th>Élément</th><th>Montant</th></tr>
       </thead>
       <tbody>
-        <tr><td>MUTUELLE E.NAT. SECTEUR MUTUALISTE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>MUTUELLE E.NAT. CAISSE RETRAITE ET DECES</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>IMPOT SUR LE REVENU</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>FONDATION MOHAMMED VI - M.E.N</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>CAISSE MAROCAINE DE RETRAITE (CIVIL)</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>ASSURANCE MALADIE OBLIGATOIRE (BASE CMR)</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">MUTUELLE E.NAT. SECTEUR MUTUALISTE</span><span class="label-short">Mut.Sect.Mut</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">MUTUELLE E.NAT. CAISSE RETRAITE ET DECES</span><span class="label-short">Mut.Caisse R.</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">IMPOT SUR LE REVENU</span><span class="label-short">IMPOTS</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">FONDATION MOHAMMED VI - M.E.N</span><span class="label-short">Fondation M6</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">CAISSE MAROCAINE DE RETRAITE (CIVIL)</span><span class="label-short">Caisse.Ret</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td><span class="label-full">ASSURANCE MALADIE OBLIGATOIRE (BASE CMR)</span><span class="label-short">AMO</span></td><td><input class="amount" type="text" value="-" readonly></td></tr>
         <tr class="total-row"><td>TOTAL</td><td><input id="totalRetenues" type="text" value="0" readonly></td></tr>
       </tbody>
     </table>
@@ -135,7 +135,7 @@
   - Le résultat de cette simulation a une vocation purement informative et ne revêt aucun caractère contractuel.
 </footer>
 
-<script src="script.js?v=20260723-5"></script>
+<script src="script.js?v=20260723-6"></script>
 
 </body>
 </html>
