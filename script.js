@@ -6,17 +6,20 @@ const base = [
   [704, 746, 779, 812, 840, 870, 900, 930, 0, 0, 0, 0, 0, 0]
 ];
 
-const ALL_COMPLEMENT_EXCLUDED = new Set([
-  'Enseignant - Primaire',
-  'Enseignant - Collège',
-  'Directeur adjoint - Primaire',
+const ALL_COMPLEMENT_FUNCTIONS = new Set([
+  'Enseignant - Lycée',
+  'Directeur - Lycée',
+  'Directeur adjoint - Lycée',
+  'Censeur',
+  "Directeur d'études",
+  'Chef de travaux',
+  "Surveillant d'internat - Lycée",
   'Enseignant Agrégé',
   'Enseignant Agrégé - Centres',
   'Inspecteur',
   "Conseiller d'Orientation",
   'Fournisseur',
-  'Économe',
-  'Assistant Pédagogique'
+  'Économe'
 ]);
 
 const VALIDATION_EXCEPTIONS = new Set([
@@ -44,7 +47,6 @@ function calculateMandati({
   zone = 'A',
   marie = false,
   fonction = 'Enseignant - Primaire',
-  allcomp = true,
   logadm = true,
   mutcr = true
 } = {}) {
@@ -101,25 +103,24 @@ function calculateMandati({
   }
 
   let allComplet = 0;
-  if (allcomp && !ALL_COMPLEMENT_EXCLUDED.has(fonction)) {
+  const allCompletEnabled = ALL_COMPLEMENT_FUNCTIONS.has(fonction);
+  if (allCompletEnabled) {
     allComplet = countEch === 10 ? 646 : countEch === 11 ? 758 : 807;
   }
 
-  if (fonction === 'Enseignant Agrégé') {
+  if (allCompletEnabled && fonction === 'Enseignant Agrégé') {
     allComplet = countEch === 11 ? 3166 : countEch === 12 ? 3215 : 0;
-  } else if (fonction === 'Enseignant Agrégé - Centres') {
+  } else if (allCompletEnabled && fonction === 'Enseignant Agrégé - Centres') {
     if (countEch === 11) allComplet = a < 6 ? 5272 : 5321;
     else if (countEch === 12) allComplet = 5321;
-  } else if (fonction === 'Inspecteur') {
+  } else if (allCompletEnabled && fonction === 'Inspecteur') {
     allComplet = countEch === 11 ? 4145 : countEch === 12 ? 5452 : 0;
-  } else if (fonction === "Conseiller d'Orientation") {
+  } else if (allCompletEnabled && fonction === "Conseiller d'Orientation") {
     allComplet = countEch === 10 ? (a < 6 ? 1500 : 1568) : 1597;
-  } else if (fonction === 'Fournisseur') {
+  } else if (allCompletEnabled && fonction === 'Fournisseur') {
     allComplet = 1113;
-  } else if (fonction === 'Économe') {
+  } else if (allCompletEnabled && fonction === 'Économe') {
     allComplet = 923;
-  } else if (fonction === 'Assistant Pédagogique') {
-    allComplet = 170;
   }
 
   const emoluments = [
@@ -190,7 +191,10 @@ function decrease(id, min) {
 }
 
 function formatAmount(value) {
-  return Number(value).toFixed(2);
+  return new Intl.NumberFormat('fr-FR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(Number(value));
 }
 
 function renderCalculation(result) {
@@ -217,7 +221,6 @@ if (typeof document !== 'undefined') {
       zone: document.getElementById('zone').value,
       marie: document.getElementById('marie').checked,
       fonction: document.getElementById('fonction').value,
-      allcomp: document.getElementById('allcomp').checked,
       logadm: document.getElementById('logadm').checked,
       mutcr: document.getElementById('mutcr').checked
     });
