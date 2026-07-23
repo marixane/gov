@@ -190,6 +190,13 @@ function decrease(id, min) {
   input.value = Math.max(min, parseInt(input.value, 10) - 1);
 }
 
+// Expose the controls for browsers that still evaluate legacy inline handlers
+// in the page context (notably some mobile WebViews).
+if (typeof window !== 'undefined') {
+  window.increase = increase;
+  window.decrease = decrease;
+}
+
 function formatAmount(value) {
   return new Intl.NumberFormat('fr-FR', {
     minimumFractionDigits: 2,
@@ -213,6 +220,25 @@ function renderCalculation(result) {
 }
 
 if (typeof document !== 'undefined') {
+  // Les commandes restent réactives au toucher, même après plusieurs appuis
+  // rapides : `touch-action: manipulation` évite que le navigateur interprète
+  // le double appui comme un zoom de page.
+  document.addEventListener('click', (event) => {
+    const button = event.target.closest('.input-group button[data-adjust]');
+    if (!button) return;
+    event.preventDefault();
+    const id = button.dataset.target;
+    const limit = Number(button.dataset.limit);
+    if (button.dataset.adjust === 'increase') increase(id, limit);
+    else decrease(id, limit);
+  });
+  document.querySelectorAll('.input-group button[data-adjust]').forEach((button) => {
+    button.addEventListener('dblclick', (event) => event.preventDefault());
+    button.addEventListener('pointerdown', () => button.classList.add('is-pressed'), { passive: true });
+    button.addEventListener('pointerup', () => button.classList.remove('is-pressed'), { passive: true });
+    button.addEventListener('pointercancel', () => button.classList.remove('is-pressed'), { passive: true });
+  });
+
   document.getElementById('btnCalculer').addEventListener('click', function () {
     const result = calculateMandati({
       echelle: document.getElementById('echelle').value,

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mandati MEN</title>
+  <title>Calcul de Salaire</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +11,7 @@
 
 <header class="app-bar">
   <a class="app-back" href="https://a4exam.com/" aria-label="Retour à l’accueil">‹</a>
-  <span>Mandati MEN</span>
+  <span>Calcul de Salaire</span>
   <span class="app-menu" aria-hidden="true">⋮</span>
 </header>
 
@@ -51,16 +51,16 @@
         <tr><th>Élément</th><th>Montant</th></tr>
       </thead>
       <tbody>
-        <tr><td>Trait.de base</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Ind.Log.Adm.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Ind.Char.Adm.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Ind.Familiale</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Ind.De Suj.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Ind.R.S.CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Ind.R.N.S.CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>All.Ens.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>All.Encad.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>All.Complém.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>TRAITEMENT DE BASE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>INDEMNITÉS DE LOGEMENT</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>INDEMNITÉS DE CHARGE ADMINISTRATIVE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>INDEMNITÉ FAMILIALE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>INDEM. DE SUJÉTION</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>INDEM. DE RÉSID. SOUMISE À LA CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>INDEM. DE RÉSID. NON SOUMISE À LA CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>ALLOCATION D'ENSEIGNEMENT</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>ALLOCATION D'ENCADREMENT</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>ALL. COMPLÉMENTAIRE SCE ÉCONOMIQUE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
         <tr class="total-row"><td>TOTAL</td><td><input id="totalEmoluments" type="text" value="0" readonly></td></tr>
       </tbody>
     </table>
@@ -71,12 +71,12 @@
         <tr><th>Élément</th><th>Montant</th></tr>
       </thead>
       <tbody>
-        <tr><td>Mut.Sect.Mut</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Mut.Caisse R.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>IMPOTS</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Fondation M6</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>Caisse.Ret</td><td><input class="amount" type="text" value="-" readonly></td></tr>
-        <tr><td>AMO</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>MUTUELLE E.NAT. SECTEUR MUTUALISTE</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>MUTUELLE E.NAT. CAISSE RETRAITE ET DECES</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>IMPOT SUR LE REVENU</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>FONDATION MOHAMMED VI - M.E.N</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>CAISSE MAROCAINE DE RETRAITE (CIVIL)</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>ASSURANCE MALADIE OBLIGATOIRE (BASE CMR)</td><td><input class="amount" type="text" value="-" readonly></td></tr>
         <tr class="total-row"><td>TOTAL</td><td><input id="totalRetenues" type="text" value="0" readonly></td></tr>
       </tbody>
     </table>
@@ -91,17 +91,17 @@
     <div class="row-control">
       <label>Échelle :</label>
       <div class="input-group">
-        <button onclick="decrease('echelle', 10)">-</button>
+        <button type="button" data-adjust="decrease" data-target="echelle" data-limit="10">-</button>
         <input id="echelle" type="number" value="10" min="10" max="12" readonly>
-        <button onclick="increase('echelle', 12)">+</button>
+        <button type="button" data-adjust="increase" data-target="echelle" data-limit="12">+</button>
       </div>
     </div>
     <div class="row-control">
       <label>Échelon :</label>
       <div class="input-group">
-        <button onclick="decrease('echelon', 1)">-</button>
+        <button type="button" data-adjust="decrease" data-target="echelon" data-limit="1">-</button>
         <input id="echelon" type="number" value="1" min="1" max="14" readonly>
-        <button onclick="increase('echelon', 14)">+</button>
+        <button type="button" data-adjust="increase" data-target="echelon" data-limit="14">+</button>
       </div>
     </div>
     <div class="row-control">
@@ -113,17 +113,17 @@
       </select>
     </div>
     <div class="row-control">
-      <label>Nb Enf :</label>
+      <label>Nb Enfants :</label>
       <div class="input-group">
-        <button onclick="decrease('nbEnf', 0)">-</button>
+        <button type="button" data-adjust="decrease" data-target="nbEnf" data-limit="0">-</button>
         <input id="nbEnf" type="number" value="0" min="0" max="6" readonly>
-        <button onclick="increase('nbEnf', 6)">+</button>
+        <button type="button" data-adjust="increase" data-target="nbEnf" data-limit="6">+</button>
       </div>
     </div>
     <div class="checkbox-group">
       <label><input type="checkbox" id="marie"> Marié</label>
-      <label><input type="checkbox" id="logadm" checked> Ind. Log. Adm</label>
-      <label><input type="checkbox" id="mutcr" checked> Mut.C.R Et Décès</label>
+      <label><input type="checkbox" id="logadm" checked> Indemnités de Logement</label>
+      <label><input type="checkbox" id="mutcr" checked> Mutuelle.C.R et Décès</label>
     </div>
     <button id="btnCalculer">Calculer</button>
     <div id="notification"></div>
@@ -131,11 +131,11 @@
 </div>
 
 <footer class="disclaimer">
-  NB : - Femmes (Nb Enf : 0 et Marié : [ ]).<br>
+  NB : - Femmes (Nb Enfants : 0 et Marié : [ ]).<br>
   - Le résultat de cette simulation a une vocation purement informative et ne revêt aucun caractère contractuel.
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=20260723-5"></script>
 
 </body>
 </html>

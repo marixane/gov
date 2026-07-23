@@ -9,6 +9,8 @@
 
 * { box-sizing: border-box; }
 
+button, input, select { touch-action: manipulation; }
+
 html, body { min-height: 100%; }
 
 body {
@@ -111,12 +113,15 @@ table {
 thead { display: none; }
 
 td {
-  height: 31px;
+  height: auto;
+  min-height: 31px;
   padding: 2px 7px;
   border: 0;
   font-size: clamp(.9rem, 1.8vw, 1.15rem);
   font-weight: 700;
-  white-space: nowrap;
+  line-height: 1.12;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 td:first-child { width: 72%; }
@@ -183,6 +188,14 @@ td:last-child { border-radius: 0 2px 2px 0; }
   font-size: 1.8rem;
   line-height: 1;
   cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.input-group button.is-pressed,
+.input-group button:active {
+  transform: translateY(1px) scale(.97);
+  background: rgba(255, 255, 255, .82);
 }
 
 .input-group input {
@@ -270,9 +283,19 @@ td:last-child { border-radius: 0 2px 2px 0; }
     margin-top: 8px;
   }
   .left, .right { padding: 5px; }
-  #fonction { min-height: 62px; padding: 0 12px; }
+  /* The widened portrait selector must not sit above the numeric controls. */
+  .right { position: relative; z-index: 4; }
+  #fonction {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 62px;
+    padding: 0 12px;
+    position: relative;
+    z-index: 3;
+  }
   .row-control > label { font-size: 1rem; }
-  td { height: 31px; padding: 2px 5px; font-size: .92rem; }
+  td { min-height: 31px; padding: 4px 5px; font-size: .72rem; line-height: 1.08; }
   /* Keep enough room for formatted amounts such as “1 685,92” on phones. */
   td:first-child { width: 60%; }
   td:last-child { width: 40%; }
@@ -293,12 +316,20 @@ td:last-child { border-radius: 0 2px 2px 0; }
   }
   .input-group { gap: 3px; }
   .input-group button { width: 34px; height: 34px; font-size: 1.45rem; }
-  .input-group input { height: 34px; font-size: 1.2rem; }
+  .input-group input { height: 34px; font-size: 1.2rem; touch-action: manipulation; }
   #zone { height: 36px; font-size: 1.2rem; }
   .checkbox-group label { margin: 9px 0; font-size: .93rem; }
   .checkbox-group input { width: 21px; height: 21px; margin-right: 4px; }
   #btnCalculer { min-height: 58px; font-size: 1.55rem; }
   .disclaimer { width: calc(100% - 14px); font-size: .78rem; }
+}
+
+@media (max-width: 680px) and (orientation: portrait) {
+  #fonction {
+    width: 200%;
+    max-width: calc(100vw - 14px);
+    min-width: 320px;
+  }
 }
 
 @media (min-width: 1200px) {
