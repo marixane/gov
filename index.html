@@ -19,6 +19,7 @@
   <div class="left">
     <div class="row-control">
       <label for="fonction">Fonction :</label>
+      <div class="fonction-picker">
       <select id="fonction">
         <option>Enseignant - Primaire</option>
         <option>Enseignant - Collège</option>
@@ -43,6 +44,8 @@
         <option>Économe</option>
         <option>Assistant Pédagogique</option>
       </select>
+      <span id="fonction-current" aria-hidden="true"></span>
+      </div>
     </div>
 
     <h3>ÉMOLUMENTS <span>MONTANT</span></h3>
@@ -135,7 +138,7 @@
   - Le résultat de cette simulation a une vocation purement informative et ne revêt aucun caractère contractuel.
 </footer>
 
-<script src="script.js?v=20260723-6"></script>
+<script src="script.js?v=20260723-8"></script>
 
 </body>
 </html>

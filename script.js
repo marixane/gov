@@ -243,6 +243,12 @@ if (typeof document !== 'undefined') {
     button.addEventListener('pointercancel', () => button.classList.remove('is-pressed'), { passive: true });
   });
 
+  const fonctionSelect = document.getElementById('fonction');
+  const fonctionCurrent = document.getElementById('fonction-current');
+  const syncFonctionLabel = () => { fonctionCurrent.textContent = fonctionSelect.options[fonctionSelect.selectedIndex].text; };
+  fonctionSelect.addEventListener('change', syncFonctionLabel);
+  syncFonctionLabel();
+
   document.getElementById('btnCalculer').addEventListener('click', function () {
     const result = calculateMandati({
       echelle: document.getElementById('echelle').value,

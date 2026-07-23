@@ -91,6 +91,9 @@ body {
   font-weight: 700;
 }
 
+.fonction-picker { position: relative; }
+#fonction-current { display: none; }
+
 h3 {
   display: flex;
   justify-content: space-between;
@@ -336,6 +339,23 @@ td:last-child { border-radius: 0 2px 2px 0; }
     height: 82px;
     line-height: 1.2;
     white-space: normal;
+    color: transparent;
+  }
+
+  #fonction option { color: #111; }
+  #fonction-current {
+    position: absolute;
+    inset: 0 38px 0 12px;
+    display: flex;
+    align-items: center;
+    z-index: 4;
+    color: #111;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    pointer-events: none;
   }
 
   .label-full { display: none; }
