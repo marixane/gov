@@ -9,7 +9,11 @@
 </head>
 <body>
 
-<header>Mandati MEN</header>
+<header class="app-bar">
+  <span class="app-close" aria-hidden="true">×</span>
+  <span>Mandati MEN</span>
+  <span class="app-menu" aria-hidden="true">⋮</span>
+</header>
 
 <div class="container">
   <div class="left">
@@ -41,45 +45,45 @@
       </select>
     </div>
 
-    <h3>Émoluments</h3>
+    <h3>ÉMOLUMENTS <span>MONTANT</span></h3>
     <table id="emoluments">
       <thead>
         <tr><th>Élément</th><th>Montant</th></tr>
       </thead>
       <tbody>
-        <tr><td>Trait. de base</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Ind. Log. Adm.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Ind. Char. Adm.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Ind. Familiale</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Ind. Sujetion</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Ind. Résidence</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Ind. Non Résidence</td><td><input type="number" value="0"></td></tr>
-        <tr><td>All. Ens.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>All. Encad.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>All. Complém.</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Trait.de base</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Ind.Log.Adm.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Ind.Char.Adm.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Ind.Familiale</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Ind.De Suj.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Ind.R.S.CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Ind.R.N.S.CMR</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>All.Ens.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>All.Encad.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>All.Complém.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
         <tr class="total-row"><td>TOTAL</td><td><input id="totalEmoluments" type="text" value="0" readonly></td></tr>
       </tbody>
     </table>
 
-    <h3>Retenues</h3>
+    <h3>RETENUES <span>MONTANT</span></h3>
     <table id="retenues">
       <thead>
         <tr><th>Élément</th><th>Montant</th></tr>
       </thead>
       <tbody>
-        <tr><td>Mut. Sect. Mut.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Mut. Caisse Ret.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Impôts</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Fondation M6</td><td><input type="number" value="0"></td></tr>
-        <tr><td>Caisse Ret.</td><td><input type="number" value="0"></td></tr>
-        <tr><td>AMO</td><td><input type="number" value="0"></td></tr>
+        <tr><td>Mut.Sect.Mut</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Mut.Caisse R.</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>IMPOTS</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Fondation M6</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>Caisse.Ret</td><td><input class="amount" type="text" value="-" readonly></td></tr>
+        <tr><td>AMO</td><td><input class="amount" type="text" value="-" readonly></td></tr>
         <tr class="total-row"><td>TOTAL</td><td><input id="totalRetenues" type="text" value="0" readonly></td></tr>
       </tbody>
     </table>
 
-    <div class="row-control">
+    <div class="row-control net-row">
       <label>Salaire Net :</label>
-      <input id="salnet" type="text" value="0" readonly style="font-size: 1.5rem; font-weight: bold;">
+      <input id="salnet" type="text" value="-" readonly>
     </div>
   </div>
 
@@ -126,6 +130,11 @@
     <div id="notification"></div>
   </div>
 </div>
+
+<footer class="disclaimer">
+  NB : - Femmes (Nb Enf : 0 et Marié : [ ]).<br>
+  - Le résultat de cette simulation a une vocation purement informative et ne revêt aucun caractère contractuel.
+</footer>
 
 <script src="script.js"></script>
 

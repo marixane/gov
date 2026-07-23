@@ -194,8 +194,8 @@ function formatAmount(value) {
 }
 
 function renderCalculation(result) {
-  const emolumentsInputs = document.querySelectorAll('#emoluments tbody input[type="number"]');
-  const retenuesInputs = document.querySelectorAll('#retenues tbody input[type="number"]');
+  const emolumentsInputs = document.querySelectorAll('#emoluments tbody .amount');
+  const retenuesInputs = document.querySelectorAll('#retenues tbody .amount');
   result.emoluments.forEach((value, index) => { emolumentsInputs[index].value = formatAmount(value); });
   result.retenues.forEach((value, index) => { retenuesInputs[index].value = formatAmount(value); });
   document.getElementById('totalEmoluments').value = formatAmount(result.totalEmoluments);
