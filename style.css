@@ -32,11 +32,19 @@ body {
   box-shadow: 0 3px 7px rgba(40, 20, 75, .24);
 }
 
-.app-close, .app-menu {
+.app-back, .app-menu {
   text-align: center;
   font-size: 2.1rem;
   line-height: 1;
 }
+
+.app-back {
+  color: #fff;
+  text-decoration: none;
+  transition: transform .15s ease;
+}
+
+.app-back:hover, .app-back:focus-visible { transform: translateX(-3px); outline: none; }
 
 .app-menu { font-weight: 700; }
 
@@ -257,7 +265,7 @@ td:last-child { border-radius: 0 2px 2px 0; }
   .app-bar { height: 78px; }
   .container {
     width: calc(100% - 14px);
-    grid-template-columns: minmax(0, 1fr) 174px;
+    grid-template-columns: minmax(0, 1fr) 150px;
     gap: 5px;
     margin-top: 8px;
   }
@@ -265,7 +273,8 @@ td:last-child { border-radius: 0 2px 2px 0; }
   #fonction { min-height: 62px; padding: 0 12px; }
   .row-control > label { font-size: 1rem; }
   td { height: 31px; padding: 2px 5px; font-size: .92rem; }
-  td:first-child { width: 72%; }
+  td:first-child { width: 68%; }
+  td:last-child { width: 32%; }
   .net-row { grid-template-columns: 1fr 60px; min-height: 62px; padding: 6px; }
   .net-row label, .net-row input { font-size: 1.1rem; }
   .input-group { gap: 3px; }
