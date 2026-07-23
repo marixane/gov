@@ -96,7 +96,7 @@
       <label>Échelon :</label>
       <div class="input-group">
         <button onclick="decrease('echelon', 1)">-</button>
-        <input id="echelon" type="number" value="5" min="1" max="14" readonly>
+        <input id="echelon" type="number" value="1" min="1" max="14" readonly>
         <button onclick="increase('echelon', 14)">+</button>
       </div>
     </div>
@@ -111,16 +111,16 @@
     <div class="row-control">
       <label>Nb Enf :</label>
       <div class="input-group">
-        <button onclick="decrease('nbEnf', 1)">-</button>
-        <input id="nbEnf" type="number" value="1" min="1" max="6" readonly>
+        <button onclick="decrease('nbEnf', 0)">-</button>
+        <input id="nbEnf" type="number" value="0" min="0" max="6" readonly>
         <button onclick="increase('nbEnf', 6)">+</button>
       </div>
     </div>
     <div class="checkbox-group">
       <label><input type="checkbox" id="marie"> Marié</label>
-      <label><input type="checkbox" id="allcomp"> All. Comp</label>
-      <label><input type="checkbox" id="logadm"> Ind. Log. Adm</label>
-      <label><input type="checkbox" id="mutcr"> Mut.C.R Et Décès</label>
+      <label><input type="checkbox" id="allcomp" checked> All. Comp</label>
+      <label><input type="checkbox" id="logadm" checked> Ind. Log. Adm</label>
+      <label><input type="checkbox" id="mutcr" checked> Mut.C.R Et Décès</label>
     </div>
     <button id="btnCalculer">Calculer</button>
     <div id="notification"></div>
