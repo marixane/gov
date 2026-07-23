@@ -1,120 +1,284 @@
+:root {
+  --purple: #6650a5;
+  --purple-dark: #4d3a87;
+  --red: #d92929;
+  --ink: #111;
+  --line: rgba(70, 70, 70, .28);
+  --panel: rgba(255, 255, 255, .72);
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-height: 100%; }
+
 body {
-    font-family: 'Roboto', sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  header {
-    background-color: #6200ee;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-  
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff8e9 url("background.webp") center top / cover fixed no-repeat;
+}
+
+.app-bar {
+  height: 78px;
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  padding: 0 14px;
+  color: #fff;
+  background: linear-gradient(180deg, #735bb6 0%, var(--purple) 100%);
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  letter-spacing: .01em;
+  box-shadow: 0 3px 7px rgba(40, 20, 75, .24);
+}
+
+.app-close, .app-menu {
+  text-align: center;
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.app-menu { font-weight: 700; }
+
+.container {
+  width: min(1180px, calc(100% - 32px));
+  margin: 10px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.left, .right {
+  min-width: 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, .38);
+  border-radius: 8px;
+}
+
+.row-control { margin: 0 0 10px; }
+
+.row-control > label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+#fonction {
+  width: 100%;
+  min-height: 66px;
+  padding: 0 18px;
+  border: 2px solid #9b58bb;
+  border-radius: 6px;
+  color: #111;
+  background: #dc8beb;
+  font-size: clamp(1.05rem, 2.4vw, 1.42rem);
+  font-weight: 700;
+}
+
+h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0 8px;
+  padding: 7px 12px;
+  color: #fff;
+  background: linear-gradient(90deg, #5b58a4 0%, #7657aa 100%);
+  font-size: clamp(.9rem, 2vw, 1.15rem);
+  font-style: italic;
+  font-weight: 800;
+}
+
+h3 span { font-style: normal; }
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  table-layout: fixed;
+}
+
+thead { display: none; }
+
+td {
+  height: 31px;
+  padding: 2px 7px;
+  border: 0;
+  font-size: clamp(.9rem, 1.8vw, 1.15rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+td:first-child { width: 72%; }
+td:last-child { width: 28%; text-align: center; }
+
+tbody tr:nth-child(odd) td { background: rgba(127, 200, 201, .62); }
+tbody tr:nth-child(even) td { background: rgba(166, 178, 181, .65); }
+#retenues tbody tr:nth-child(odd) td { background: rgba(215, 188, 173, .66); }
+#retenues tbody tr:nth-child(even) td { background: rgba(208, 195, 203, .7); }
+
+td:first-child { border-radius: 2px 0 0 2px; }
+td:last-child { border-radius: 0 2px 2px 0; }
+
+.amount, #totalEmoluments, #totalRetenues {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  color: #111;
+  background: transparent;
+  text-align: center;
+  font: inherit;
+}
+
+.total-row td {
+  height: 36px;
+  background: rgba(255, 238, 59, .78) !important;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+}
+
+.net-row {
+  display: grid;
+  grid-template-columns: 1fr 90px;
+  align-items: center;
+  min-height: 70px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: rgba(52, 202, 163, .72);
+}
+
+.net-row label { margin: 0; color: #111; font-size: 1.45rem; }
+.net-row input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-group button {
+  width: 48px;
+  height: 40px;
+  border: 2px solid #111;
+  border-radius: 22px;
+  color: #111;
+  background: rgba(255, 255, 255, .46);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.input-group input {
+  min-width: 0;
+  flex: 1;
+  height: 40px;
+  padding: 0 5px;
+  border: 2px solid #111;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .48);
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#zone {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 2px solid #111;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .46);
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.checkbox-group { margin: 12px 0 0; }
+
+.checkbox-group label {
+  display: block;
+  margin: 11px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.checkbox-group input {
+  width: 25px;
+  height: 25px;
+  margin: 0 8px 0 0;
+  accent-color: var(--purple);
+  vertical-align: middle;
+}
+
+#btnCalculer {
+  width: 100%;
+  min-height: 66px;
+  margin-top: 16px;
+  border: 4px solid #4d1fd1;
+  border-radius: 38px;
+  color: #111;
+  background: linear-gradient(180deg, #e8a1ff 0%, #c76df1 100%);
+  box-shadow: 0 5px 0 #5224a6, 0 6px 10px rgba(74, 35, 132, .35);
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  font-style: italic;
+  cursor: pointer;
+}
+
+#btnCalculer:active { transform: translateY(3px); box-shadow: 0 2px 0 #5224a6; }
+
+#notification {
+  display: none;
+  margin: 12px 0 0;
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .75);
+  text-align: center;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.disclaimer {
+  width: min(1180px, calc(100% - 32px));
+  margin: 10px auto 20px;
+  color: #777;
+  font-size: .95rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 680px) {
+  .app-bar { height: 78px; }
   .container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  
-  .left, .right {
-    background: white;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #6200ee;
-    color: white;
-  }
-  
-  .total-row {
-    background-color: #ffff99;
-    font-weight: bold;
-  }
-  
-  .row-control {
-    margin-bottom: 1rem;
-  }
-  
-  .row-control label {
-    font-weight: bold;
-    color: #6200ee;
-  }
-  
-  .row-control input, .row-control select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    font-size: 1rem;
-  }
-  
-  .checkbox-group {
-    margin-top: 1rem;
-  }
-  
-  .checkbox-group label {
-    display: block;
-    margin: 0.5rem 0;
-    font-weight: normal;
-  }
-  
-  #btnCalculer {
-    width: 100%;
-    padding: 1rem;
-    background-color: #6200ee;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 2rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  #btnCalculer:hover {
-    background-color: #3700b3;
-  }
-  
-  #notification {
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.2rem;
-    color: green;
-  }
-  
-  .input-group {
-    display: flex;
-    align-items: center;
+    width: calc(100% - 14px);
+    grid-template-columns: minmax(0, 1fr) 174px;
     gap: 5px;
+    margin-top: 8px;
   }
-  
-  .input-group button {
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .container {
-      grid-template-columns: 1fr;
-    }
-  }
+  .left, .right { padding: 5px; }
+  #fonction { min-height: 62px; padding: 0 12px; }
+  .row-control > label { font-size: 1rem; }
+  td { height: 31px; padding: 2px 5px; font-size: .92rem; }
+  td:first-child { width: 72%; }
+  .net-row { grid-template-columns: 1fr 60px; min-height: 62px; padding: 6px; }
+  .net-row label, .net-row input { font-size: 1.1rem; }
+  .input-group { gap: 3px; }
+  .input-group button { width: 34px; height: 34px; font-size: 1.45rem; }
+  .input-group input { height: 34px; font-size: 1.2rem; }
+  #zone { height: 36px; font-size: 1.2rem; }
+  .checkbox-group label { margin: 9px 0; font-size: .93rem; }
+  .checkbox-group input { width: 21px; height: 21px; margin-right: 4px; }
+  #btnCalculer { min-height: 58px; font-size: 1.55rem; }
+  .disclaimer { width: calc(100% - 14px); font-size: .78rem; }
+}
+
+@media (min-width: 1200px) {
+  .container { margin-top: 20px; }
+  .left, .right { padding: 14px; }
+}
