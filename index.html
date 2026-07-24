@@ -11,10 +11,14 @@
 
 <header class="app-bar">
   <a class="app-back" href="https://a4exam.com/" aria-label="Retour à l’accueil">‹</a>
-  <span>Calcul de Salaire</span>
-  <span class="app-menu" aria-hidden="true">⋮</span>
+  <span id="appTitle">Calcul de Salaire</span>
+  <button class="app-menu" id="appMenuButton" type="button" aria-label="Ouvrir le menu" aria-expanded="false">⋮</button>
+  <div class="app-menu-panel" id="appMenuPanel" hidden>
+    <button id="retirementMenuItem" type="button">Retraite</button>
+  </div>
 </header>
 
+<main id="salaryView">
 <div class="container">
   <div class="left">
     <div class="row-control">
@@ -137,8 +141,55 @@
   NB : - Femmes (Nb Enfants : 0 et Marié : [ ]).<br>
   - Le résultat de cette simulation a une vocation purement informative et ne revêt aucun caractère contractuel.
 </footer>
+</main>
 
-<script src="script.js?v=20260723-8"></script>
+<main id="retirementView" class="retirement-view" hidden>
+  <section class="retirement-card" aria-labelledby="retirementHeading">
+    <h1 id="retirementHeading">Calcul de retraite</h1>
+
+    <div class="retirement-function">
+      <label for="retirementFonction">Fonction :</label>
+      <select id="retirementFonction"></select>
+    </div>
+
+    <div class="retirement-dates">
+      <label><span>Date de naissance :</span><input id="retirementBirth" type="date"></label>
+      <label><span>Date de recrutement :</span><input id="retirementRecruitment" type="date"></label>
+      <label class="retirement-radiation">
+        <span><input id="retirementAgeLimit" type="checkbox" checked> Date de radiation <small>(limite d’âge)</small></span>
+        <input id="retirementRadiation" type="date">
+      </label>
+    </div>
+
+    <section class="retirement-history" aria-labelledby="historyHeading">
+      <h2 id="historyHeading">Situations des dernières 8 années</h2>
+      <div class="retirement-history-row" data-ret-row="1">
+        <div class="retirement-adjust"><span>Échelle :</span><div class="retirement-stepper"><button type="button" data-ret-action="scale-down" data-ret-row="1">−</button><output id="retScale1">10</output><button type="button" data-ret-action="scale-up" data-ret-row="1">+</button></div></div>
+        <div class="retirement-adjust"><span>Échelon :</span><div class="retirement-stepper"><button type="button" data-ret-action="level-down" data-ret-row="1">−</button><output id="retLevel1">1</output><button type="button" data-ret-action="level-up" data-ret-row="1">+</button></div></div>
+        <label class="retirement-history-date"><span>Date :</span><input id="retDate1" type="date"></label>
+      </div>
+      <div class="retirement-history-row" data-ret-row="2">
+        <div class="retirement-adjust"><span>Échelle :</span><div class="retirement-stepper"><button type="button" data-ret-action="scale-down" data-ret-row="2">−</button><output id="retScale2">11</output><button type="button" data-ret-action="scale-up" data-ret-row="2">+</button></div></div>
+        <div class="retirement-adjust"><span>Échelon :</span><div class="retirement-stepper"><button type="button" data-ret-action="level-down" data-ret-row="2">−</button><output id="retLevel2">1</output><button type="button" data-ret-action="level-up" data-ret-row="2">+</button></div></div>
+        <label class="retirement-history-date"><span>Date :</span><input id="retDate2" type="date"></label>
+      </div>
+      <div class="retirement-history-row" data-ret-row="3">
+        <div class="retirement-adjust"><span>Échelle :</span><div class="retirement-stepper"><button type="button" data-ret-action="scale-down" data-ret-row="3">−</button><output id="retScale3">HE</output><button type="button" data-ret-action="scale-up" data-ret-row="3">+</button></div></div>
+        <div class="retirement-adjust"><span>Échelon :</span><div class="retirement-stepper"><button type="button" data-ret-action="level-down" data-ret-row="3">−</button><output id="retLevel3">1</output><button type="button" data-ret-action="level-up" data-ret-row="3">+</button></div></div>
+        <label class="retirement-history-date"><span>Date :</span><input id="retDate3" type="date"></label>
+      </div>
+    </section>
+
+    <div class="retirement-results" aria-live="polite">
+      <div><span>Durée de service totale :</span><output id="retirementDuration">—</output></div>
+      <div><span>Pourcentage de pension :</span><output id="retirementPercent">—</output></div>
+    </div>
+    <button id="retirementCalculate" class="retirement-calculate" type="button">Calculer</button>
+    <p id="retirementNotification" class="retirement-notification" role="status"></p>
+  </section>
+</main>
+
+<script src="script.js?v=20260724-1"></script>
 
 </body>
 </html>

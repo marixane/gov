@@ -264,4 +264,208 @@ if (typeof document !== 'undefined') {
   });
 }
 
-if (typeof module !== 'undefined') module.exports = { calculateMandati };
+// ---------------------------------------------------------------------------
+// Calcul de retraite
+// ---------------------------------------------------------------------------
+// Cette partie est isolée du moteur de salaire ci-dessus : ouvrir la page
+// retraite ne réinitialise donc aucun champ du calcul de salaire.
+const retirementFunctions = [
+  'Enseignant - Primaire', 'Enseignant - Collège', 'Enseignant - Lycée',
+  "Directeur d'école - Primaire", 'Directeur adjoint - Primaire', 'Directeur - Collège',
+  "Surveillant d'externat - Collège", "Surveillant d'internat - Collège",
+  'Directeur - Lycée', 'Directeur adjoint - Lycée', 'Censeur', "Directeur d'études",
+  'Chef de travaux', "Surveillant d'externat - Lycée", "Surveillant d'internat - Lycée",
+  'Enseignant Agrégé', 'Enseignant Agrégé - Centres', 'Inspecteur',
+  "Conseiller d'Orientation", 'Fournisseur', 'Économe', 'Assistant Pédagogique'
+];
+
+function dateToIso(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function isoToDate(value) {
+  if (!value) return null;
+  const [year, month, day] = value.split('-').map(Number);
+  if (!year || !month || !day) return null;
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function addYearsIso(value, years) {
+  const date = isoToDate(value);
+  if (!date) return '';
+  date.setUTCFullYear(date.getUTCFullYear() + years);
+  return dateToIso(new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+}
+
+function addYearsMonthsDays(startValue, endValue) {
+  const start = isoToDate(startValue);
+  const end = isoToDate(endValue);
+  if (!start || !end || end < start) return '0A 0M 0J';
+
+  let years = end.getUTCFullYear() - start.getUTCFullYear();
+  let months = end.getUTCMonth() - start.getUTCMonth();
+  let days = end.getUTCDate() - start.getUTCDate();
+  if (days < 0) {
+    months -= 1;
+    const previousMonth = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), 0));
+    days += previousMonth.getUTCDate();
+  }
+  if (months < 0) { years -= 1; months += 12; }
+  return `${years}A ${months}M ${days}J`;
+}
+
+function calculateRetirementPercent(recruitmentValue, radiationValue) {
+  const recruitment = isoToDate(recruitmentValue);
+  const radiation = isoToDate(radiationValue);
+  const reference = new Date(Date.UTC(2017, 0, 1));
+  if (!recruitment || !radiation || radiation < recruitment) return 0;
+
+  const days = 86400000;
+  let before2017 = 0;
+  let adjustment = 0;
+  if (recruitment <= reference) {
+    const years = (reference - recruitment) / days / 365;
+    const rounded = Math.ceil(years * 2) / 2;
+    before2017 = rounded * 2.5;
+    adjustment = rounded - years;
+  }
+
+  const afterYears = Math.max(0, (radiation - reference) / days / 365 - adjustment);
+  const roundedAfter = Math.ceil(afterYears * 2) / 2;
+  return Math.max(0, before2017 + roundedAfter * 2);
+}
+
+if (typeof document !== 'undefined') {
+  const salaryView = document.getElementById('salaryView');
+  const retirementView = document.getElementById('retirementView');
+  const appTitle = document.getElementById('appTitle');
+  const appBack = document.querySelector('.app-back');
+  const menuButton = document.getElementById('appMenuButton');
+  const menuPanel = document.getElementById('appMenuPanel');
+  const retirementMenuItem = document.getElementById('retirementMenuItem');
+
+  const retirementFonction = document.getElementById('retirementFonction');
+  if (retirementFonction) {
+    retirementFunctions.forEach((name) => retirementFonction.add(new Option(name, name)));
+  }
+
+  const birth = document.getElementById('retirementBirth');
+  const recruitment = document.getElementById('retirementRecruitment');
+  const radiation = document.getElementById('retirementRadiation');
+  const ageLimit = document.getElementById('retirementAgeLimit');
+  const historyDates = [1, 2, 3].map((n) => document.getElementById(`retDate${n}`));
+  const scaleValues = ['10', '11', 'HE'];
+  const scales = ['10', '11', 'HE'];
+  const levels = [1, 1, 1];
+  let retirementInitialized = false;
+
+  const updateRetirementOutputs = () => {
+    const duration = document.getElementById('retirementDuration');
+    const percent = document.getElementById('retirementPercent');
+    if (duration) duration.textContent = addYearsMonthsDays(recruitment.value, radiation.value);
+    if (percent) percent.textContent = `${calculateRetirementPercent(recruitment.value, radiation.value).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %`;
+  };
+
+  const initializeRetirement = () => {
+    // The menu can be opened repeatedly. Keep the user's entries and avoid
+    // registering duplicate listeners each time the view is shown.
+    if (retirementInitialized) {
+      updateRetirementOutputs();
+      return;
+    }
+    retirementInitialized = true;
+    const now = new Date();
+    const year = now.getFullYear();
+    birth.value = `${year - 63}-01-01`;
+    recruitment.value = `${year - 40}-09-02`;
+    historyDates.forEach((input) => { input.value = `${year - 8}-09-02`; });
+    const updateRadiation = () => {
+      const birthDate = isoToDate(birth.value);
+      if (!birthDate) return;
+      const birthYear = birthDate.getUTCFullYear();
+      const beforeSeptember = birthDate < new Date(Date.UTC(birthYear, 8, 1));
+      const retirementDate = new Date(Date.UTC(birthYear + (beforeSeptember ? 63 : 64), 7, 31));
+      radiation.value = dateToIso(new Date(retirementDate.getUTCFullYear(), retirementDate.getUTCMonth(), retirementDate.getUTCDate()));
+      radiation.disabled = ageLimit.checked;
+      updateRetirementOutputs();
+    };
+    updateRadiation();
+    birth.addEventListener('change', () => {
+      recruitment.value = addYearsIso(birth.value, 22).replace(/-\d{2}-\d{2}$/, '-09-02');
+      updateRadiation();
+    });
+    recruitment.addEventListener('change', updateRetirementOutputs);
+    radiation.addEventListener('change', updateRetirementOutputs);
+    ageLimit.addEventListener('change', () => {
+      if (ageLimit.checked) updateRadiation();
+      else radiation.disabled = false;
+      updateRetirementOutputs();
+    });
+    document.querySelectorAll('[data-ret-action]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const row = Number(button.dataset.retRow) - 1;
+        const action = button.dataset.retAction;
+        if (action === 'level-up') levels[row] = Math.min(13, levels[row] + 1);
+        if (action === 'level-down') levels[row] = Math.max(1, levels[row] - 1);
+        if (action === 'scale-up') scales[row] = scaleValues[Math.min(scaleValues.length - 1, scaleValues.indexOf(scales[row]) + 1)];
+        if (action === 'scale-down') scales[row] = scaleValues[Math.max(0, scaleValues.indexOf(scales[row]) - 1)];
+        document.getElementById(`retScale${row + 1}`).textContent = scales[row];
+        document.getElementById(`retLevel${row + 1}`).textContent = levels[row];
+      });
+    });
+    document.getElementById('retirementCalculate').addEventListener('click', () => {
+      updateRetirementOutputs();
+      document.getElementById('retirementNotification').textContent = 'Calcul effectué à titre informatif.';
+    });
+    updateRetirementOutputs();
+  };
+
+  const showRetirement = () => {
+    initializeRetirement();
+    salaryView.hidden = true;
+    retirementView.hidden = false;
+    appTitle.textContent = 'Calcul de Retraite';
+    appBack.setAttribute('aria-label', 'Retour au calcul de salaire');
+    appBack.dataset.retirement = 'true';
+    menuPanel.hidden = true;
+    menuButton.setAttribute('aria-expanded', 'false');
+  };
+
+  const showSalary = () => {
+    retirementView.hidden = true;
+    salaryView.hidden = false;
+    appTitle.textContent = 'Calcul de Salaire';
+    appBack.setAttribute('aria-label', 'Retour à l’accueil');
+    delete appBack.dataset.retirement;
+  };
+
+  menuButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    menuPanel.hidden = !menuPanel.hidden;
+    menuButton.setAttribute('aria-expanded', String(!menuPanel.hidden));
+  });
+  retirementMenuItem.addEventListener('click', showRetirement);
+  document.addEventListener('click', (event) => {
+    if (!menuPanel.hidden && !menuPanel.contains(event.target) && event.target !== menuButton) {
+      menuPanel.hidden = true;
+      menuButton.setAttribute('aria-expanded', 'false');
+    }
+  });
+  appBack.addEventListener('click', (event) => {
+    if (appBack.dataset.retirement === 'true') {
+      event.preventDefault();
+      showSalary();
+    }
+  });
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = {
+    calculateMandati,
+    calculateRetirementPercent,
+    addYearsMonthsDays
+  };
+}

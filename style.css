@@ -25,6 +25,7 @@ body {
 }
 
 .app-bar {
+  position: relative;
   height: 78px;
   display: grid;
   grid-template-columns: 52px 1fr 52px;
@@ -51,7 +52,54 @@ body {
 
 .app-back:hover, .app-back:focus-visible { transform: translateX(-3px); outline: none; }
 
-.app-menu { font-weight: 700; }
+.app-menu {
+  width: 44px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  color: #fff;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.app-menu:hover, .app-menu:focus-visible {
+  background: rgba(255, 255, 255, .16);
+  outline: none;
+}
+
+.app-menu-panel {
+  position: absolute;
+  z-index: 20;
+  top: 66px;
+  right: 14px;
+  min-width: 170px;
+  padding: 6px;
+  border: 1px solid rgba(74, 53, 131, .25);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(35, 20, 70, .25);
+}
+
+.app-menu-panel button {
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 7px;
+  color: #34265f;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.app-menu-panel button:hover, .app-menu-panel button:focus-visible {
+  background: #f0eafd;
+  outline: none;
+}
 
 .container {
   width: min(1180px, calc(100% - 32px));
@@ -280,6 +328,157 @@ td:last-child { border-radius: 0 2px 2px 0; }
   line-height: 1.25;
 }
 
+/* Retirement calculator. It intentionally lives in the same document so the
+   existing salary calculator keeps its state when the user returns. */
+.retirement-view {
+  width: min(980px, calc(100% - 32px));
+  margin: 18px auto 28px;
+}
+
+.retirement-card {
+  padding: clamp(16px, 3vw, 30px);
+  border: 1px solid rgba(93, 70, 152, .25);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .76);
+  box-shadow: 0 8px 22px rgba(55, 35, 110, .18);
+}
+
+.retirement-card h1 {
+  margin: 0 0 20px;
+  color: var(--purple-dark);
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  text-align: center;
+}
+
+.retirement-function > label,
+.retirement-dates > label > span,
+.retirement-adjust > span,
+.retirement-history-date > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #bd1d1d;
+  font-weight: 700;
+}
+
+.retirement-function select,
+.retirement-dates input,
+.retirement-history-date input {
+  width: 100%;
+  min-height: 44px;
+  padding: 7px 10px;
+  border: 2px solid #8d73c1;
+  border-radius: 9px;
+  color: #161616;
+  background: rgba(255, 255, 255, .84);
+  font: inherit;
+  font-weight: 700;
+}
+
+.retirement-dates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.retirement-radiation > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.retirement-radiation > span input { width: 19px; min-height: 19px; accent-color: var(--purple); }
+.retirement-radiation small { color: #555; font-size: .78em; }
+
+.retirement-history {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(107, 86, 165, .11);
+}
+
+.retirement-history h2 {
+  margin: 0 0 14px;
+  color: #222;
+  font-size: clamp(1.15rem, 3vw, 1.55rem);
+  text-align: center;
+}
+
+.retirement-history-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(90, 80, 110, .2);
+}
+
+.retirement-stepper {
+  display: grid;
+  grid-template-columns: 40px minmax(44px, 1fr) 40px;
+  align-items: center;
+}
+
+.retirement-stepper button {
+  height: 40px;
+  border: 1px solid #222;
+  color: #222;
+  background: rgba(255, 255, 255, .68);
+  font-size: 1.45rem;
+  cursor: pointer;
+}
+
+.retirement-stepper button:first-child { border-radius: 20px 0 0 20px; }
+.retirement-stepper button:last-child { border-radius: 0 20px 20px 0; }
+.retirement-stepper output {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  background: rgba(255, 255, 255, .52);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.retirement-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.retirement-results > div {
+  display: grid;
+  gap: 7px;
+  min-height: 76px;
+  padding: 12px;
+  border: 1px solid #5c5c5c;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .58);
+  text-align: center;
+  font-weight: 700;
+}
+
+.retirement-results output { font-size: 1.25rem; }
+
+.retirement-calculate {
+  display: block;
+  width: min(330px, 100%);
+  min-height: 58px;
+  margin: 18px auto 0;
+  border: 4px solid #4d1fd1;
+  border-radius: 32px;
+  color: #111;
+  background: linear-gradient(180deg, #e8a1ff 0%, #c76df1 100%);
+  box-shadow: 0 5px 0 #5224a6;
+  font-family: Georgia, serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.retirement-notification { margin: 10px 0 0; color: #b42318; text-align: center; font-weight: 700; }
+
 @media (max-width: 680px) {
   .app-bar { height: 78px; }
   .container {
@@ -328,6 +527,19 @@ td:last-child { border-radius: 0 2px 2px 0; }
   .checkbox-group input { width: 21px; height: 21px; margin-right: 4px; }
   #btnCalculer { min-height: 58px; font-size: 1.55rem; }
   .disclaimer { width: calc(100% - 14px); font-size: .78rem; }
+
+  .retirement-view { width: calc(100% - 14px); margin-top: 10px; }
+  .retirement-card { padding: 12px 9px 18px; border-radius: 12px; }
+  .retirement-card h1 { margin-bottom: 13px; font-size: 1.45rem; }
+  .retirement-dates { grid-template-columns: 1fr; gap: 9px; margin: 12px 0; }
+  .retirement-history { padding: 9px; }
+  .retirement-history-row { grid-template-columns: 1fr 1fr; gap: 9px; }
+  .retirement-history-date { grid-column: 1 / -1; }
+  .retirement-results { grid-template-columns: 1fr; gap: 9px; }
+  .retirement-stepper { grid-template-columns: 34px minmax(34px, 1fr) 34px; }
+  .retirement-stepper button, .retirement-stepper output { height: 35px; }
+  .retirement-adjust > span, .retirement-history-date > span { font-size: .88rem; }
+  .retirement-calculate { min-height: 52px; font-size: 1.55rem; }
 }
 
 @media (max-width: 680px) and (orientation: portrait) {
