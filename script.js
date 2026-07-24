@@ -338,6 +338,14 @@ function calculateRetirementPercent(recruitmentValue, radiationValue) {
   return Math.max(0, before2017 + roundedAfter * 2);
 }
 
+function collectRetirementSituations(scales, levels, dateInputs) {
+  return dateInputs.map((input, index) => ({
+    scale: scales[index],
+    level: levels[index],
+    date: input.value
+  }));
+}
+
 if (typeof document !== 'undefined') {
   const salaryView = document.getElementById('salaryView');
   const retirementView = document.getElementById('retirementView');
@@ -417,8 +425,12 @@ if (typeof document !== 'undefined') {
       });
     });
     document.getElementById('retirementCalculate').addEventListener('click', () => {
+      const situations = collectRetirementSituations(scales, levels, historyDates);
       updateRetirementOutputs();
-      document.getElementById('retirementNotification').textContent = 'Calcul effectué à titre informatif.';
+      const completeSituations = situations.filter((situation) => situation.date && situation.scale !== '-').length;
+      document.getElementById('retirementNotification').textContent = completeSituations === situations.length
+        ? 'Calcul effectué avec les 3 dernières situations, à titre informatif.'
+        : `Calcul effectué avec ${completeSituations} situation(s) renseignée(s), à titre informatif.`;
     });
     updateRetirementOutputs();
   };
@@ -466,6 +478,7 @@ if (typeof module !== 'undefined') {
   module.exports = {
     calculateMandati,
     calculateRetirementPercent,
-    addYearsMonthsDays
+    addYearsMonthsDays,
+    collectRetirementSituations
   };
 }
