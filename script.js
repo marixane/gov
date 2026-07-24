@@ -439,7 +439,7 @@ if (typeof document !== 'undefined') {
     initializeRetirement();
     salaryView.hidden = true;
     retirementView.hidden = false;
-    appTitle.textContent = 'Calcul de Retraite';
+    appTitle.textContent = 'Mandati MEN';
     appBack.setAttribute('aria-label', 'Retour au calcul de salaire');
     appBack.dataset.retirement = 'true';
     menuPanel.hidden = true;

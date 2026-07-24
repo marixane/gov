@@ -335,6 +335,18 @@ td:last-child { border-radius: 0 2px 2px 0; }
   margin: 18px auto 28px;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .retirement-card {
   padding: clamp(16px, 3vw, 30px);
   border: 1px solid rgba(93, 70, 152, .25);
@@ -344,10 +356,17 @@ td:last-child { border-radius: 0 2px 2px 0; }
 }
 
 .retirement-card h1 {
-  margin: 0 0 20px;
-  color: var(--purple-dark);
-  font-size: clamp(1.6rem, 4vw, 2.25rem);
-  text-align: center;
+  /* The Android reference puts the page name in the toolbar. Keep the
+     heading for accessibility without adding a second visible title. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .retirement-function > label,
@@ -530,7 +549,6 @@ td:last-child { border-radius: 0 2px 2px 0; }
 
   .retirement-view { width: calc(100% - 14px); margin-top: 10px; }
   .retirement-card { padding: 12px 9px 18px; border-radius: 12px; }
-  .retirement-card h1 { margin-bottom: 13px; font-size: 1.45rem; }
   .retirement-dates { grid-template-columns: 1fr; gap: 9px; margin: 12px 0; }
   .retirement-history { padding: 9px; }
   .retirement-history-row { grid-template-columns: 1fr 1fr; gap: 9px; }
